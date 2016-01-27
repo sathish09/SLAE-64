@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# Python XOR Encoder 
+# Python XOR/NOT Encoder 
 
 shellcode=("\x24\x18\x7b\x24\x7b\x73\x33\x28\x24\x5d\x17\x31\x34\x37\x17\x17\x39\x34\x29\x2a\x2f\x35\x1d\x2c\x07\x02");
 encoded = ""
@@ -9,7 +9,7 @@ encoded2 = ""
 print 'Encoded shellcode ...'
 
 for x in bytearray(shellcode) :
-	# XOR Encoding 	
+	# XOR/not Encoding 	
 	y = x^0xee
 	b = ~y
 	
