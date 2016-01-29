@@ -1,3 +1,9 @@
+;Original Shellcode : http://shell-storm.org/shellcode/files/shellcode-878.php
+;Read /etc/passwd Linux x86_64 Shellcode
+;modified by Sathish Kumar L SLAE64 - 1408
+;original lenght = 82 bytes
+;modified length = 98 bytes
+
 global _start
 
 _start:

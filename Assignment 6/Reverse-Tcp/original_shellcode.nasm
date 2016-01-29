@@ -1,5 +1,6 @@
 ; Author Andriy Brukhovetskyy - doomedraven - SLAEx64 1322
 ; 138 bytes
+
 global _start
 section .text
 _start:
